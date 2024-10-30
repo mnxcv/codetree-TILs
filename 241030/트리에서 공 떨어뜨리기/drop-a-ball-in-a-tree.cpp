@@ -77,6 +77,7 @@ int main() {
     cin >> k;
     string kbin = to_binstr(k - 1);
     reverse(kbin.begin(), kbin.end());
+    //cerr << kbin << '\n';
     
     int checking_bit = 0;
 
@@ -86,7 +87,7 @@ int main() {
         if(child_nodes[loc].first == EMPTY) loc = child_nodes[loc].second;
         else if(child_nodes[loc].second == EMPTY) loc = child_nodes[loc].first;
         else{
-            if(kbin[checking_bit] == '0') loc = child_nodes[loc].first;
+            if(checking_bit >= kbin.size() || kbin[checking_bit] == '0') loc = child_nodes[loc].first;
             else loc = child_nodes[loc].second;
 
             checking_bit++;
