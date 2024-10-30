@@ -57,7 +57,7 @@ void new_visit(int node, vector<bool>& visited){
         tmpstr += binstr[i];
         int tmp = binstr_to(tmpstr);
         //cerr << tmp << ' ' << tmpstr << '\n';
-        if(visited[tmp]) { cout << tmp << ' '; return; }
+        if(visited[tmp]) { cout << tmp << '\n'; return; }
     }
     visited[node] = true;
     cout << 0 << '\n';
