@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+#define int long long 
+
 const int EMPTY = -1;
 
 inline int left_child(int node){ return node * 2; }
@@ -64,7 +67,7 @@ void new_visit(int node, vector<bool>& visited){
     cout << 0 << '\n';
 }
 
-int main() {
+signed main() {
     int n;
     cin >> n;
     for(int i = 1; i <= n; i++){
