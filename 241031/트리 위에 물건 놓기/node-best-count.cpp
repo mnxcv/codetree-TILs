@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long long 
-
 const int EMPTY = 0;
 
 inline int left_child(int node){ return node * 2; }
@@ -14,6 +12,8 @@ vector<int> dp_empty(100010, EMPTY);
 vector<int> dp_fill(100010, EMPTY);
 
 int caldp(int rt, int parent, bool fill = false){
+    if(fill && dp_fill[rt] != EMPTY) return dp_fill[rt];
+    if(!fill && dp_empty[rt] != EMPTY) return dp_empty[rt];
     int sum = fill;
     for(auto i : edges[rt]){
         if(i == parent) continue;
