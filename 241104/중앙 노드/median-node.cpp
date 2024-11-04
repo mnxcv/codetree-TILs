@@ -18,7 +18,6 @@ int caldp(int rt, int parent){
     int cnt = 0;
     for(auto i : edges[rt]){
         if(i == parent) continue;
-        if(++cnt == 2 && CN == -1) CN = rt;
         sum += caldp(i, rt);
     }
 
@@ -44,6 +43,21 @@ signed main() {
         cin >> a >> b;
         edges[a].push_back(b);
         edges[b].push_back(a);
+    }
+
+    queue<pair<int, int>> q;
+    q.push({r, -1});
+    while(!q.empty()){
+        auto cur = q.front();
+        q.pop();
+        if(edges[cur.first].size() > 2 || (cur.second == -1 && edges[cur.first].size() > 1)){
+            CN = cur.first;
+            break;
+        }
+        for(auto i : edges[cur.first]){
+            if(i == cur.second) continue;
+            q.push({i, cur.first});
+        }
     }
 
     caldp(r, -1);
