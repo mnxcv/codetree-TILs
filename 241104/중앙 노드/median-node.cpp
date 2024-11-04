@@ -3,33 +3,25 @@ using namespace std;
 
 #define endl '\n'
 
-const int EMPTY = 0;
+const int EMPTY = -1;
 
 vector<int> edges[100010];
 vector<int> dp(100010, EMPTY);
+vector<int> par(100010, -1);
 
 int CN = -1;
 
 int ans = 0;
 
 int caldp(int rt, int parent){
+    par[rt] = parent;
     if(dp[rt] != EMPTY) return dp[rt];
+
     int sum = 1;
-    int cnt = 0;
+
     for(auto i : edges[rt]){
         if(i == parent) continue;
         sum += caldp(i, rt);
-    }
-
-    if(CN == rt){
-        int mx = -1;
-        int mn = 2147483647;
-        for(auto i : edges[rt]){
-            if(i == parent) continue;
-            mn = min(mn, caldp(i, rt));
-            mx = max(mx, caldp(i, rt));
-        }
-        ans = mx - mn;
     }
 
     return dp[rt] = sum;
@@ -61,6 +53,21 @@ signed main() {
     }
 
     caldp(r, -1);
+
+    int mn = 1e9; int mx = 0;
+
+    for(auto i : edges[CN]){
+        if(i == par[CN]) continue;
+        mn = min(mn, dp[i]);
+        mx = max(mx, dp[i]);
+    }
+    
+    if(n != dp[CN]){
+        mx = max(mx, n - dp[CN]);
+        mn = min(mn, n - dp[CN]);
+    }
+
+    ans = mx - mn;
 
     cout << ans << endl;
 }
